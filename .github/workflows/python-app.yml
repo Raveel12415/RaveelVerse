@@ -49,17 +49,4 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Deploy to Server
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-          SERVER_IP: ${{ secrets.SERVER_IP }}
-          USERNAME: ${{ secrets.USERNAME }}
-        run: |
-          echo "$SSH_PRIVATE_KEY" > deploy_key && chmod 600 deploy_key
-          ssh -o StrictHostKeyChecking=no -i deploy_key $USERNAME@$SERVER_IP << 'EOF'
-            cd /path/to/your/flask/app
-            git pull origin main
-            source venv/bin/activate
-            pip install -r requirements.txt
-            systemctl restart flask-app
-          EOF
+     
